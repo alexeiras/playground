@@ -1,0 +1,5 @@
+.stack-work
+*.hi
+*.o
+TAGS
+notebooks/.ipynb_checkpoints
