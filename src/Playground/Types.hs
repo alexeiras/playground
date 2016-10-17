@@ -39,7 +39,9 @@ class RedisKey k where
     key :: k -> S.ByteString
 
 instance RedisKey Params where
-    key Sales{..} = S.intercalate ":" ["sales", species, market]
+    key Sales{..}   = S.intercalate ":" ["sales", species, market]
+    key (Species _) = "species"
+    key (Markets _) = "markets"
 
 instance RedisKey S.ByteString where
     key = id

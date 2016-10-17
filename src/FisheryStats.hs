@@ -11,7 +11,6 @@ module FisheryStats
     ) where
 
 import           Control.Applicative
-import           Control.Monad
 import           Data.Attoparsec.ByteString.Char8
 import qualified Data.ByteString.Char8            as S
 import           Data.Function
@@ -27,8 +26,8 @@ range k bs = do
     conn <- dbConn
     runRedis conn $ redisCmd (key k) bs
         where
-            redisCmd k (s :/: s') = zrangebyscore k (score s) (score s')
-            redisCmd k (i :|: i') = zrange k i i'
+            redisCmd k' (s :/: s') = zrangebyscore k' (score s) (score s')
+            redisCmd k' (i :|: i') = zrange k' i i'
 
 rangeMulti :: (RedisKey k) => [k] -> Bounds -> IO [Either Reply [S.ByteString]]
 rangeMulti ks bs = sequence $ fmap (bs & flip range) ks
@@ -41,13 +40,13 @@ toSalesLine = fromRight . parseOnly parseSalesLine
 
 parseSalesLine :: Parser SalesLine
 parseSalesLine = do
-    date <- parseLocalTime <* char ':'
-    amount <- parseFractional <* char ':'
-    price <- parseFractional <* char ':'
-    minPrice <- parseFractional <* char ':'
-    maxPrice <- parseFractional <* char ':'
-    avgPrice <- parseFractional
-    return $ SalesLine date amount price minPrice maxPrice avgPrice
+    date' <- parseLocalTime <* char ':'
+    amount' <- parseFractional <* char ':'
+    price' <- parseFractional <* char ':'
+    minPrice' <- parseFractional <* char ':'
+    maxPrice' <- parseFractional <* char ':'
+    avgPrice' <- parseFractional
+    return $ SalesLine date' amount' price' minPrice' maxPrice' avgPrice'
 
 parseLocalTime :: Parser LocalTime
 parseLocalTime = do

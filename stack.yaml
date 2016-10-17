@@ -15,7 +15,7 @@
 # resolver:
 #  name: custom-snapshot
 #  location: "./custom-snapshot.yaml"
-resolver: lts-6.13
+resolver: lts-6.10
 
 # User packages to be built.
 # Various formats can be used as shown in the example below.
@@ -37,9 +37,13 @@ resolver: lts-6.13
 # will not be run. This is useful for tweaking upstream packages.
 packages:
 - '.'
+- location:
+    git: https://github.com/alexeiras/lightning-haskell
+    commit: 36fa1f3aaa2c4c722c6f9ba0129c39008b34ff4c
+
 # Dependency packages to be pulled from upstream that are not in the resolver
 # (e.g., acme-missiles-0.3)
-extra-deps: []
+extra-deps: [api-builder-0.12.0.0]
 
 # Override default flag values for local packages and extra-deps
 flags: {}

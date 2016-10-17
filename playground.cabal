@@ -16,12 +16,12 @@ cabal-version:       >=1.10
 library
   hs-source-dirs:      src
   exposed-modules:     FisheryStats
+  other-modules:       Playground.Types
   build-depends:       attoparsec
                      , base >= 4.7 && < 5
                      , bytestring
                      , hedis
                      , ihaskell
-                     , ihaskell-charts
                      , statistics
                      , time
   default-language:    Haskell2010
